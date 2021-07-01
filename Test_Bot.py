@@ -19,15 +19,18 @@ article2 = Article('https://en.wikipedia.org/wiki/Python_(programming_language)'
 article2.download()
 article2.parse()
 article2.nlp()
-corpus = article.text + article2.text
+corpus = article.text 
+corpus2 = article2.text
 
 #Print Article
 #print(corpus)
 
 
 #Tokenization
-text = corpus
-sentence_list = nltk.sent_tokenize(text) #Create list of sentences
+text_buhler = corpus
+sentence_list_buhler = nltk.sent_tokenize(text_buhler) #Create list of sentences
+text_python = corpus2
+sentence_list_python = nltk.sent_tokenize(text_python)
 
 #Print List Of Sentences
 #print(sentence_list)
@@ -63,31 +66,52 @@ def index_sort(list_var):
 #Bots Response
 def bot_response(user_input):
     user_input = user_input.lower()
-    sentence_list.append(user_input)
+    sentence_list_buhler.append(user_input)
+    sentence_list_python.append(user_input)
     bot_response = ''
-    cm = CountVectorizer().fit_transform(sentence_list)
-    similarity_scores = cosine_similarity(cm[-1], cm)
-    similarity_scores_list = similarity_scores.flatten()
-    index = index_sort(similarity_scores_list)
-    index = index[1:]
+    cm_buhler = CountVectorizer().fit_transform(sentence_list_buhler)
+    cm_python = CountVectorizer().fit_transform(sentence_list_python)
+    similarity_scores_buhler = cosine_similarity(cm_buhler[-1], cm_buhler)
+    similarity_scores_list_buhler = similarity_scores_buhler.flatten()
+    similarity_scores_python = cosine_similarity(cm_python[-1], cm_python)
+    similarity_scores_list_python = similarity_scores_python.flatten()
+    index_buhler = index_sort(similarity_scores_list_buhler)
+    index_buhler = index_buhler[1:]
+    index_python = index_sort(similarity_scores_list_python)
+    index_python = index_python[1:]
     response_flag = 0
 
     j = 0
-    for i in range(len(index)):
-        if similarity_scores_list[index[i]] > 0.0:
-            print(similarity_scores_list[index[i]])
-            bot_response = bot_response+' '+sentence_list[index[i]]
-            response_flag = 1
-            j = j+1
-        if j > 2:
-            break
-
-        if response_flag == 0:
-            bot_response = bot_response+' '+"I apologize, I don't understand."
-        sentence_list.remove(user_input)
-
-        return bot_response
-
+    accuracy = 0
+    if similarity_scores_list_buhler[index_buhler[0]] > similarity_scores_list_python[index_python[0]]:
+        for i in range(len(index_buhler)):
+            if similarity_scores_list_buhler[index_buhler[i]] > 0.0:
+                bot_response = 'Bühler Bot: '+ sentence_list_buhler[index_buhler[i]]
+                response_flag = 1
+                j = j+1
+            if j > 2:
+                break
+        
+            if response_flag == 0:
+                bot_response = "I apologize, I don't understand."
+            
+            sentence_list_python.remove(user_input)
+            sentence_list_buhler.remove(user_input)
+            return bot_response
+    else:
+        for i in range(len(index_python)):
+            if similarity_scores_list_python[index_python[i]] > 0.0:
+                bot_response = 'Python Bot: '+ sentence_list_python[index_python[i]]
+                response_flag = 1
+                j = j+1
+            if j > 2:
+                break
+        
+            if response_flag == 0:
+                bot_response = bot_response+' '+"I apologize, I don't understand."
+            sentence_list_python.remove(user_input)
+            sentence_list_buhler.remove(user_input)
+            return bot_response
 #Start the chat
 print('Test Bot: Hi I am a Test Bot. Ask me anything about Bühler.') 
 
@@ -101,16 +125,8 @@ while(True):
         break
     else:
         if greeting_response(user_input) != None:
-            print('Test Bot: '+greeting_response(user_input))
+            print(greeting_response(user_input))
         else:
-            print('Test Bot: '+bot_response(user_input))
+            print(bot_response(user_input))
 
-            
-
-
-
-
- 
-
-    
     
