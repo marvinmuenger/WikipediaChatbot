@@ -108,7 +108,7 @@ def bot_response(user_input):
             return bot_response
 
 #Start the chat
-print('Test Bot: Hi I am a Test Bot. Ask me anything about Bühler.') 
+print('Test Bot: Hi I am a Test Bot. Ask me anything about Bühler or Python.') 
 
 exit_list = ['exit', 'see you later', 'bye', 'quit', 'break', 'stop']
 
