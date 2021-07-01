@@ -22,9 +22,6 @@ article2.nlp()
 corpus = article.text 
 corpus2 = article2.text
 
-#Print Article
-#print(corpus)
-
 
 #Tokenization
 text_buhler = corpus
@@ -32,8 +29,6 @@ sentence_list_buhler = nltk.sent_tokenize(text_buhler) #Create list of sentences
 text_python = corpus2
 sentence_list_python = nltk.sent_tokenize(text_python)
 
-#Print List Of Sentences
-#print(sentence_list)
 
 #Random Greeting Response Function
 def greeting_response(text):
@@ -111,6 +106,7 @@ def bot_response(user_input):
             sentence_list_python.remove(user_input)
             sentence_list_buhler.remove(user_input)
             return bot_response
+
 #Start the chat
 print('Test Bot: Hi I am a Test Bot. Ask me anything about Bühler.') 
 
