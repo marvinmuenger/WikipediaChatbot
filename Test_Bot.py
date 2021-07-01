@@ -82,7 +82,6 @@ def bot_response(user_input):
     response_flag = 0
 
     j = 0
-    accuracy = 0
     if similarity_scores_list_buhler[index_buhler[0]] > similarity_scores_list_python[index_python[0]]:
         for i in range(len(index_buhler)):
             if similarity_scores_list_buhler[index_buhler[i]] > 0.0:
