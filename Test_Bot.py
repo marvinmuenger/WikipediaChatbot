@@ -10,7 +10,7 @@ warnings.filterwarnings('ignore')
 
 nltk.download('punkt', quiet=True)
 
-#Get The Article
+#Scrape The Wikipedia Pages
 article = Article('https://en.wikipedia.org/wiki/Bühler_Group')
 article.download()
 article.parse()
